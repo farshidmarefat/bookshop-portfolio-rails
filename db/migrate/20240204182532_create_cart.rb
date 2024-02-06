@@ -2,7 +2,7 @@ class CreateCart < ActiveRecord::Migration[7.1]
   def change
     create_table :carts do |t|
       t.references :user, foreign_key: true
-      t.integer :cart_delivery_id
+      t.references :cart_delivery, foreign_key: true
       t.integer :status
       t.json :meta
       t.text :description

@@ -9,4 +9,4 @@ development:
   <<: *default
   database: bookshop_portfolio_rails_development
   username: farshidmarefat
-  password:
+  password: basmasoofiani

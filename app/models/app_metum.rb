@@ -1,0 +1,2 @@
+class AppMetum < ApplicationRecord
+end

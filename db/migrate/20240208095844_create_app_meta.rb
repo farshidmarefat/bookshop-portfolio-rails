@@ -22,6 +22,7 @@ class CreateAppMeta < ActiveRecord::Migration[7.1]
       t.text :description
       t.datetime :created_at
       t.datetime :updated_at
+
     end
   end
 end

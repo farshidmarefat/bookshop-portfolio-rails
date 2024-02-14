@@ -1,12 +1,13 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
+  host: db
+  port: 5432
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: bookshop_portfolio_rails_development
+  database: bookshop_portfolio_rails
   username: farshidmarefat
   password: basmasoofiani

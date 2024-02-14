@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :access_token
       t.string :verify_code
       t.boolean :verified
+      t.string :nick_name
       t.json :meta
       t.text :description
       t.datetime :created_at, precision: 6

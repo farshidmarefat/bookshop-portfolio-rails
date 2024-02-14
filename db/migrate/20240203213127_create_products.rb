@@ -13,6 +13,7 @@ class CreateProducts < ActiveRecord::Migration[7.1]
       t.string :size
       t.string :price
       t.integer :rate
+      t.string :slug
       t.string :publish_year
       t.integer :pages_count
       t.integer :visit_count

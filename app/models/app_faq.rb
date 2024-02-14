@@ -1,0 +1,2 @@
+class AppFaq < ApplicationRecord
+end

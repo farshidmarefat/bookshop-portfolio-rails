@@ -1,0 +1,2 @@
+class AppAdvantage < ApplicationRecord
+end

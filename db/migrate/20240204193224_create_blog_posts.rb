@@ -9,6 +9,7 @@ class CreateBlogPosts < ActiveRecord::Migration[7.1]
       t.string :thumbnail_image_url
       t.boolean :published, default: false
       t.integer :visit_count, default: 0
+      t.text :summary
       t.json :meta
       t.text :description
       t.datetime :created_at, precision: 6

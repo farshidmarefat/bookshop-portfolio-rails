@@ -1,17 +1,17 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: tickode-database-bookshop
-#  host: db
+#  host: tickode-database-bookshop
+  host: localhost
   port: 5432
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: tickode-database-bookshop
-  username: root
-  password: LHaAzthIm8xuzm67zJJua3my
-#  database: bookshop_portfolio_rails
-#  username: farshidmarefat
-#  password: basmasoofiani
+#  database: tickode-database-bookshop
+#  username: root
+#  password: LHaAzthIm8xuzm67zJJua3my
+  database: bookshop_portfolio_rails
+  username: farshidmarefat
+  password: basmasoofiani

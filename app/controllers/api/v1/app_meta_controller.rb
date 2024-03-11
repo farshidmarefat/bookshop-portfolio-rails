@@ -3,6 +3,7 @@ module Api
     class AppMetaController < ApplicationController
       skip_before_action :verify_authenticity_token
       before_action :set_app_meta, only: [:show, :update, :destroy]
+      include Error::ErrorHandler
 
       def index
         @app_metum = AppMetum.all
@@ -21,7 +22,7 @@ module Api
       end
 
       def update
-        @app_metum.update_attributes(app_meta_params)
+        @app_metum.update!(app_meta_params)
         render :show
       end
 

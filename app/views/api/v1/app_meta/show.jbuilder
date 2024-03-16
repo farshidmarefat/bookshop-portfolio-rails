@@ -1,1 +1,1 @@
-json.app_meta @app_metum
+json.app_meta @app_meta

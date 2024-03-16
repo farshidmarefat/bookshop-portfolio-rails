@@ -12,28 +12,25 @@ module Api
       def show
       end
 
-      def new
-        @app_metum = AppMetum.new
-      end
-
       def create
-        @app_metum = ::AppMetum.create(app_meta_params)
+        @app_meta = ::AppMetum.create(app_meta_params)
         render :show
       end
 
       def update
-        @app_metum.update!(app_meta_params)
+        @app_meta.update!(app_meta_params)
         render :show
       end
 
       def destroy
-        @app_metum.destroy!
+        @app_meta.destroy!
+        render json: { message: 'AppMeta successfully destroyed.' }
       end
 
       private
 
       def set_app_meta
-        @app_metum = ::AppMetum.find(params[:id])
+        @app_meta = ::AppMetum.find(params[:id])
       end
 
       def app_meta_params

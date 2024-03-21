@@ -14,10 +14,10 @@ module Api
         end
 
         def create
-          start_date = parse_date(params[:start_date])
-          end_date = parse_date(params[:end_date])
+          result = Api::V1::Admin::Discount::Create.new.call(discount_params)
+          return render json: { errors: result.failure[:errors] },status: 400 if result.failure?
 
-          @discount = ::Discount.create(discount_params.merge(start_date: start_date, end_date: end_date))
+          @discount = result.value![:discount].attributes
           render :show
         end
 
@@ -38,7 +38,7 @@ module Api
         end
 
         def discount_params
-          params.permit(:title, :percent, :expired, :meta, :description)
+          params.require(:discount).permit(:title, :percent, :expired, :meta, :description, :start_date, :end_date)
         end
       end
     end

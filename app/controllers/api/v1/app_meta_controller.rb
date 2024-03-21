@@ -34,7 +34,7 @@ module Api
       end
 
       def app_meta_params
-        params.permit(:shop_name, :first_phone, :second_phone, :instagram, :telegram, :whatsapp, :facebook, :linkedin, :twitter, :youtube, :aparat, :email, :address, :latitude, :longitude, :terms, :about_us, :meta, :description)
+        params.require(:app_metum).permit(:shop_name, :first_phone, :second_phone, :instagram, :telegram, :whatsapp, :facebook, :linkedin, :twitter, :youtube, :aparat, :email, :address, :latitude, :longitude, :terms, :about_us, :meta, :description)
       end
     end
   end

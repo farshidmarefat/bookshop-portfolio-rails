@@ -22,7 +22,10 @@ module Api
         end
 
         def update
-          @discount.update!(discount_params)
+          result = Api::V1::Admin::Discount::Update.new.call(discount_params.merge(discount: @discount))
+          return render json: { errors: result.failure[:errors] },status: 400 if result.failure?
+
+          @discount = result.value![:discount].attributes
           render :show
         end
 

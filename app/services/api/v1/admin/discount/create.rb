@@ -18,8 +18,12 @@ module Api
             expired = input[:expired]
 
             # Check if title is present and within 255 characters limit
-            if title.blank? || title.length > 255
-              return Failure(errors: 'Title is missing or exceeds 255 characters limit')
+            if title.blank?
+              return Failure(errors: 'Title is missing')
+            end
+
+            if title.length > 255
+              return Failure(errors: 'Title exceeds 255 characters limit')
             end
 
             # Check if percent is within 0-100 range

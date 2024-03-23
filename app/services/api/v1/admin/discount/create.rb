@@ -11,7 +11,7 @@ module Api
           private
 
           def validate_params(input)
-            common_validations(input)
+            discount_validations(input)
           end
 
           def create_discount(discount_params)

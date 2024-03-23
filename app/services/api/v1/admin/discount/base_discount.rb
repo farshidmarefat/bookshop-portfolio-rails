@@ -7,7 +7,7 @@ module Api
 
           private
 
-          def common_validations(input)
+          def discount_validations(input)
             title = input[:title]
             percent = input[:percent]
             start_date = input[:start_date]

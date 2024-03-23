@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
       namespace :admin do
         resources :discount
+        resources :category
       end
 
       namespace :customer do

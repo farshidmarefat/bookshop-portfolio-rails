@@ -41,7 +41,7 @@ module Api
         end
 
         def category_params
-          params.require(:category).permit(:title, :icon, :slug, :meta, :description)
+          params.require(:category).permit(:discount_id, :title, :icon_url, :slug, :meta, :description)
         end
       end
     end

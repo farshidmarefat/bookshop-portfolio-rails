@@ -21,7 +21,7 @@ module Api
             end
 
             # Check if slug is present and in valid format (slugs)
-            unless slug.present? && slug.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
+            unless slug.present? && slug.match?(/\A[\p{L}0-9]+(?:-[\p{L}0-9]+)*\z/)
               return Failure(errors: 'Slug is missing or invalid. It should be in the format of slugs')
             end
 

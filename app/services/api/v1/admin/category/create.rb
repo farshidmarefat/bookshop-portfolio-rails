@@ -2,7 +2,7 @@ module Api
   module V1
     module Admin
       module Category
-        class Create
+        class Create < BaseCategory
           include Dry::Transaction
 
           step :validate_params

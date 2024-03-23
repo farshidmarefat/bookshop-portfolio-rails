@@ -4,6 +4,7 @@ class CreateCategories < ActiveRecord::Migration[7.1]
       t.references :discount, foreign_key: true
       t.string :title
       t.text :icon_url
+      t.string :icon
       t.string :slug
       t.json :meta
       t.text :description

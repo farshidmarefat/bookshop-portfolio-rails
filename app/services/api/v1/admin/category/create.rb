@@ -6,6 +6,7 @@ module Api
           include Dry::Transaction
 
           step :validate_params
+          step :process_icon
           step :create_category
 
           private

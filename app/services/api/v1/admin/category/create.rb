@@ -12,7 +12,7 @@ module Api
           private
 
           def validate_params(input)
-            category_validations(input)
+            create_category_validations(input)
           end
 
           def create_category(category_params)

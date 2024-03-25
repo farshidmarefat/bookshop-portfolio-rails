@@ -7,7 +7,7 @@ module Api
 
           private
 
-          def category_validations(input)
+          def create_category_validations(input)
             title = input[:title]
             slug = input[:slug]
 
@@ -28,6 +28,25 @@ module Api
             # Check if slug is unique
             if ::Category.exists?(slug: slug)
               return Failure(errors: 'Slug must be unique')
+            end
+
+            Success(input)
+          end
+
+          def update_category_validations(input)
+            title = input[:title]
+            slug = input[:slug]
+
+            # Check if title is present and within 255 characters limit
+            if title.present?
+              return Failure(errors: 'Title is missing') if title.blank?
+              return Failure(errors: 'Title exceeds 255 characters limit') if title.length > 255
+            end
+
+            # Check if slug is present and in valid format (slugs) and is unique
+            if slug.present? && input[:category]&.slug != slug
+              return Failure(errors: 'Slug is missing or invalid. It should be in the format of slugs') if slug.match?(/\A[\p{L}0-9]+(?:-[\p{L}0-9]+)*\z/)
+              return Failure(errors: 'Slug must be unique') if ::Category.exists?(slug: slug)
             end
 
             Success(input)

@@ -7,7 +7,7 @@ module Api
         include Error::ErrorHandler
 
         def index
-          @categories = Category.all
+          @categories = ::Category.all
         end
 
         def show
@@ -37,7 +37,7 @@ module Api
         private
 
         def set_category
-          @category = Category.find(params[:id])
+          @category = ::Category.find(params[:id])
         end
 
         def category_params

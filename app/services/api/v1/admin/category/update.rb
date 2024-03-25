@@ -6,12 +6,13 @@ module Api
           include Dry::Transaction
 
           step :validate_params
+          step :process_icon
           step :update_category
 
           private
 
           def validate_params(input)
-            category_validations(input)
+            update_category_validations(input)
           end
 
           def update_category(input)

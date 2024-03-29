@@ -2,7 +2,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    "uploads/author_avatars/#{SecureRandom.uuid}"
+    "uploads/#{model}/#{SecureRandom.uuid}"
   end
 
   def extension_allowlist

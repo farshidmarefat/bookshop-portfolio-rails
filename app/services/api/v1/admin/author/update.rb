@@ -15,6 +15,21 @@ module Api
             update_author_validations(input)
           end
 
+          def process_avatar(input)
+            if input[:avatar].present?
+              uploaded_avatar = input[:avatar]
+              input[:avatar_url] = process_avatar_upload(uploaded_avatar, 'author')
+            end
+
+            Success(input)
+          end
+
+          def process_avatar_upload(avatar, model)
+            uploader = AvatarUploader.new(model)
+            uploader.store!(avatar)
+            uploader.url
+          end
+
           def update_author(input)
             author = input[:author]
 

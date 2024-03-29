@@ -1,13 +1,13 @@
 module Api
   module V1
     module Admin
-      module Author
-        class BaseAuthor
+      module Translator
+        class BaseTranslator
           include Dry::Transaction
 
           private
 
-          def create_author_validations(input)
+          def create_translator_validations(input)
             full_name = input[:full_name]
 
             # Check if full_name is present and within 255 characters limit
@@ -22,7 +22,7 @@ module Api
             Success(input)
           end
 
-          def update_author_validations(input)
+          def update_translator_validations(input)
             full_name = input[:full_name]
 
             # Check if full_name is present and within 255 characters limit
@@ -32,6 +32,21 @@ module Api
             end
 
             Success(input)
+          end
+
+          def process_avatar(input)
+            if input[:avatar].present?
+              uploaded_avatar = input[:avatar]
+              input[:avatar_url] = process_avatar_upload(uploaded_avatar)
+            end
+
+            Success(input)
+          end
+
+          def process_avatar_upload(avatar)
+            uploader = AvatarUploader.new
+            uploader.store!(avatar)
+            uploader.url
           end
         end
       end

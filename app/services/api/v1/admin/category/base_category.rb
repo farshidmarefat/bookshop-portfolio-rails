@@ -51,21 +51,6 @@ module Api
 
             Success(input)
           end
-
-          def process_icon(input)
-            if input[:icon].present?
-              uploaded_icon = input[:icon]
-              input[:icon_url] = process_icon_upload(uploaded_icon)
-            end
-
-            Success(input)
-          end
-
-          def process_icon_upload(icon)
-            uploader = IconUploader.new
-            uploader.store!(icon)
-            uploader.url
-          end
         end
       end
     end

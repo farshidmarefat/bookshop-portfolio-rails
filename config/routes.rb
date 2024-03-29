@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         resources :category
         resources :author
         resources :translator
+        resources :publisher
       end
 
       namespace :customer do

@@ -3,6 +3,7 @@ class CreatePublishers < ActiveRecord::Migration[7.1]
     create_table :publishers do |t|
       t.string :title
       t.string :logo_url
+      t.string :logo
       t.string :slug
       t.json :meta
       t.text :description

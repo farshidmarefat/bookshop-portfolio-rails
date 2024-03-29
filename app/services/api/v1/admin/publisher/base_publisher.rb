@@ -1,13 +1,13 @@
 module Api
   module V1
     module Admin
-      module Category
-        class BaseCategory
+      module Publisher
+        class BasePublisher
           include Dry::Transaction
 
           private
 
-          def create_category_validations(input)
+          def create_publisher_validations(input)
             title = input[:title]
             slug = input[:slug]
 
@@ -26,14 +26,14 @@ module Api
             end
 
             # Check if slug is unique
-            if ::Category.exists?(slug: slug)
+            if ::Publisher.exists?(slug: slug)
               return Failure(errors: 'Slug must be unique')
             end
 
             Success(input)
           end
 
-          def update_category_validations(input)
+          def update_publisher_validations(input)
             title = input[:title]
             slug = input[:slug]
 
@@ -44,9 +44,9 @@ module Api
             end
 
             # Check if slug is present and in valid format (slugs) and is unique
-            if slug.present? && input[:category]&.slug != slug
+            if slug.present? && input[:publisher]&.slug != slug
               return Failure(errors: 'Slug is missing or invalid. It should be in the format of slugs') unless slug.match?(/\A[\p{L}0-9]+(?:-[\p{L}0-9]+)*\z/)
-              return Failure(errors: 'Slug must be unique') if ::Category.exists?(slug: slug)
+              return Failure(errors: 'Slug must be unique') if ::Publisher.exists?(slug: slug)
             end
 
             Success(input)

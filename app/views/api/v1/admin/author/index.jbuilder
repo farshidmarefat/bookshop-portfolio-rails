@@ -1,6 +1,6 @@
-json.authors @authors do |category|
-  category_hash = category.as_json.except("icon")
-  json.set! category.id do
-    json.merge!(category_hash)
+json.authors @authors do |author|
+  author_hash = author.as_json.except("avatar")
+  json.set! author.id do
+    json.merge!(author_hash)
   end
 end

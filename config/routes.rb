@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         resources :discount
         resources :category
         resources :author
+        resources :translator
       end
 
       namespace :customer do

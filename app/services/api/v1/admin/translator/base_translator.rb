@@ -33,21 +33,6 @@ module Api
 
             Success(input)
           end
-
-          def process_avatar(input)
-            if input[:avatar].present?
-              uploaded_avatar = input[:avatar]
-              input[:avatar_url] = process_avatar_upload(uploaded_avatar)
-            end
-
-            Success(input)
-          end
-
-          def process_avatar_upload(avatar)
-            uploader = AvatarUploader.new
-            uploader.store!(avatar)
-            uploader.url
-          end
         end
       end
     end

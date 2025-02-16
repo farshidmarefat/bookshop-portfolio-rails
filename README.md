@@ -42,3 +42,33 @@ class CreateOrder
     Success(input)
   end
 end
+```
+
+# Authentication with Devise and JWT
+
+This application uses **Devise** along with **JWT (JSON Web Tokens)** for user authentication. Below is an explanation of how the authentication is set up in this application.
+
+## Overview
+
+- **Devise** is used for user registration and login functionalities.
+- **JWT** is used for token-based authentication to protect API routes and manage sessions without relying on cookies.
+
+## Setup
+
+### 1. Devise Setup
+Devise is configured to use JWT for handling authentication. JWT tokens are generated upon successful user registration or login and are required for accessing authenticated routes.
+
+In the `config/initializers/devise.rb` file, the JWT settings are configured as follows:
+
+```ruby
+Devise.setup do |config|
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.devise_jwt_secret_key || ENV['DEVISE_JWT_SECRET_KEY']
+    jwt.dispatch_requests = [['POST', %r{^/api/v1/users/sign_in$}]]
+    jwt.revocation_requests = [['DELETE', %r{^/api/v1/users/sign_out$}]]
+    jwt.expiration_time = 2.hours.to_i
+  end
+end
+```
+The secret key is fetched from Rails credentials or environment variables (DEVISE_JWT_SECRET_KEY).
+JWT tokens are generated upon POST /api/v1/users/sign_in and can be invalidated using DELETE /api/v1/users/sign_out.

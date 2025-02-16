@@ -6,11 +6,10 @@ Rails.application.routes.draw do
       resources :app_meta
 
       devise_for :users, controllers: {
-        sessions: "api/v1/users/sessions",
-        registrations: "api/v1/users/registrations",
-        passwords: "api/v1/users/passwords"
-      }
+        registrations: :registrations,
+        sessions: :sessions }
 
+      resource :user, only: [:show]
       namespace :admin do
         resources :discount
         resources :category

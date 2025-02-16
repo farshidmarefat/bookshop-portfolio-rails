@@ -72,3 +72,78 @@ end
 ```
 The secret key is fetched from Rails credentials or environment variables (DEVISE_JWT_SECRET_KEY).
 JWT tokens are generated upon POST /api/v1/users/sign_in and can be invalidated using DELETE /api/v1/users/sign_out.
+
+### 2.User Registration
+To create a new user, send a `POST` request to `/api/v1/users` with the user parameters (e.g., email, password). Upon successful registration, a JWT token is returned:
+```ruby
+{
+  "token": "your.jwt.token"
+}
+```
+The `create` action in `RegistrationsController` handles user registration:
+```ruby
+def create
+  user = User.new(sign_up_params)
+
+  if user.save
+    token = user.generate_jwt
+    render json: token.to_json
+  else
+    render json: { errors: { 'email or password' => ['is invalid'] } }, status: :unprocessable_entity
+  end
+end
+```
+### 3. User Login
+To log in, send a `POST` request to `/api/v1/users/sign_in` with the user's email and password. If the credentials are valid, a JWT token is returned:
+```ruby
+def create
+  user = User.find_by_email(params[:email])
+
+  if user && user.valid_password?(params[:password])
+    token = user.generate_jwt
+    render json: token.to_json
+  else
+    render json: { errors: { 'email or password' => ['is invalid'] } }, status: :unprocessable_entity
+  end
+end
+```
+### 4. Authentication in API Requests
+To access protected routes, include the JWT token in the `Authorization` header of the request. The token should be prefixed with `Bearer`.
+In the controller, the `process_token` method decodes the token and sets the current user:
+```ruby
+def process_token
+  if request.headers['Authorization'].present?
+    begin
+      jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1], ENV['DEVISE_JWT_SECRET_KEY']).first
+      @current_user_id = jwt_payload['id']
+    rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError => e
+      logger.error "JWT decode error: #{e.message}"
+      head :unauthorized
+    end
+  end
+end
+```
+### 5. Accessing the Current User
+The `current_user` method is used to access the authenticated user in controllers. It fetches the user from the database using the decoded JWT payload:
+```ruby
+def current_user
+  @current_user ||= User.find(@current_user_id) if @current_user_id
+end
+```
+### 6. Protected Routes
+To protect routes and ensure only authenticated users can access them, use the `before_action :authenticate_user!` filter in your controllers. For example, in `UsersController`:
+```ruby
+module Api
+  module V1
+    class UsersController < ApplicationController
+      before_action :authenticate_user!
+
+      def show
+        render json: current_user, except: [:password_digest]
+      end
+    end
+  end
+end
+```
+The `authenticate_user!` method ensures that the user is authenticated and has a valid JWT token.
+
